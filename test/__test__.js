@@ -1,14 +1,26 @@
 const mockData = require('./mockData');
 const expect = require('chai').expect;
 const fs = require('fs');
-const { installPluginSync } = require('./utils');
-
+const {
+  installPluginSync
+} = require('./utils');
 
 describe('index.js', () => {
   const index = require('../index.js');
   const options = {
     data: mockData,
-    filePath: './demo',
+    filePath: '/Users/ryan/work/autonavi/DSL/ajx-export/demo',
+    workspaceFolders: [{
+      uri: {
+        $mid: 1,
+        fsPath: '/Users/ryan/work/autonavi/DSL/ajx-export',
+        external: 'file:////Users/ryan/work/autonavi/DSL/ajx-export',
+        path: '/Users/ryan/work/autonavi/DSL/ajx-export',
+        scheme: 'file'
+      },
+      name: 'demo',
+      index: 0
+    }],
     config: {
       accessId: 'xx',
       dslId: 41,
@@ -18,7 +30,7 @@ describe('index.js', () => {
       value: '17679'
     }
   };
-  it('index check param', async () =>{
+  it('index check param', async () => {
     expect(options).to.be.an('object');
     expect(options.filePath).to.be.a('string');
   });
@@ -44,7 +56,6 @@ describe('index.js', () => {
 
   let rdata = options;
   it('index callback result', async () => {
-
     if (plugins.length > 0) {
       // plugin invoke
       for (const iterator of plugins) {
@@ -52,8 +63,23 @@ describe('index.js', () => {
       }
     }
 
+    rdata.workspaceFolders = [{
+      uri: {
+        $mid: 1,
+        fsPath: '/Users/ryan/work/autonavi/DSL/ajx-export/demo',
+        external: 'file:///Users/ryan/work/autonavi/DSL/ajx-export/demo',
+        path: '/Users/ryan/work/autonavi/DSL/ajx-export/demo',
+        scheme: 'file'
+      },
+      name: 'demo',
+      index: 0
+    }];
     rdata = await index(rdata);
-    const { data, filePath, config } = rdata;
+    const {
+      data,
+      filePath,
+      config
+    } = rdata;
 
     expect(data).to.be.an('object');
     expect(data.code).to.be.an('object');
@@ -61,4 +87,5 @@ describe('index.js', () => {
     expect(filePath).to.be.a('string');
     expect(config).to.be.an('object');
   });
-});
+}
+);
