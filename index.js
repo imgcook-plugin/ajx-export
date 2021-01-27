@@ -140,29 +140,29 @@ const pluginHandler = async options => {
 
   const panelDisplay = data.code.panelDisplay;
   let imports = [];
-  // data.code.panelDisplay = panelDisplay.map(item => {
-  //   try {
-  //     let { panelName, panelValue, panelImports = [] } = item;
-  //     let panelPath = '';
-  //     const fileName = panelName.split('.')[0];
-  //     const fileType = util.optiFileType(workspaceFolder, panelName.split('.')[1], projectType);
-  //     panelName = `${fileName}.${fileType}`;
-  //     if (fileName !== 'index' && fileName !== 'context') {
-  //       panelPath = path.resolve(exportDirs.code, 'components', fileName, `index.${fileType}`);
-  //     } else {
-  //       panelPath = path.resolve(exportDirs.code, `${fileName}.${fileType}`);
-  //     }
-  //     panelValue = replaceCssImport(panelValue, fileName);
-  //     panelValue = replaceLocalImports(panelValue, panelImports, fileName);
-  //     imports = collectImports(imports, panelImports);
-  //     return {
-  //       ...item,
-  //       panelName,
-  //       panelValue,
-  //       panelPath
-  //     };
-  //   } catch (error) {}
-  // });
+  data.code.panelDisplay = panelDisplay.map(item => {
+    try {
+      let { panelName, panelValue, panelImports = [] } = item;
+      let panelPath = '';
+      const fileName = panelName.split('.')[0];
+      const fileType = util.optiFileType(workspaceFolder, panelName.split('.')[1], projectType);
+      panelName = `${fileName}.${fileType}`;
+      if (fileName !== 'index' && fileName !== 'context') {
+        panelPath = path.resolve(exportDirs.code, 'components', fileName, `index.${fileType}`);
+      } else {
+        panelPath = path.resolve(exportDirs.code, `${fileName}.${fileType}`);
+      }
+      panelValue = replaceCssImport(panelValue, fileName);
+      panelValue = replaceLocalImports(panelValue, panelImports, fileName);
+      imports = collectImports(imports, panelImports);
+      return {
+        ...item,
+        panelName,
+        panelValue,
+        panelPath
+      };
+    } catch (error) {}
+  });
 
   // 解析是否要写入 package.json
   if (exportDirs.packagejson) {
