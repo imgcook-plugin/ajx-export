@@ -1,6 +1,6 @@
 {
   "name": "@imgcook/ajx-export",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "plugin template",
   "main": "index.js",
   "scripts": {
