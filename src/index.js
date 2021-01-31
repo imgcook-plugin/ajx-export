@@ -127,65 +127,72 @@ function calcuAppJSONPanel(appJSONPath, pageName) {
   }
 }
 
+// const pluginHandler = async options => {
+//   let { filePath, workspaceFolders, data } = options;
+//   let pageName = getPageName(data);
+//   filePath = path.resolve(filePath);
+//   options.filePath = filePath;
+//   // workspaceFolders 是一个数组，vscode 支持同时打开多个工作空间
+//   const workspaceInfo = util.calcuWorkspaceInfo(workspaceFolders, filePath);
+//   const { workspaceFolder, workspaceName } = workspaceInfo;
+//   const projectType = util.calcuProjectType(workspaceFolder);
+//   const exportDirs = util.calcuExportDirectory(workspaceFolder, filePath, pageName, projectType);
+
+//   const panelDisplay = data.code.panelDisplay;
+//   let imports = [];
+//   data.code.panelDisplay = panelDisplay.map(item => {
+//     try {
+//       let { panelName, panelValue, panelImports = [] } = item;
+//       let panelPath = '';
+//       const fileName = panelName.split('.')[0];
+//       const fileType = util.optiFileType(workspaceFolder, panelName.split('.')[1], projectType);
+//       panelName = `${fileName}.${fileType}`;
+//       if (fileName !== 'index' && fileName !== 'context') {
+//         panelPath = path.resolve(exportDirs.code, 'components', fileName, `index.${fileType}`);
+//       } else {
+//         panelPath = path.resolve(exportDirs.code, `${fileName}.${fileType}`);
+//       }
+//       panelValue = replaceCssImport(panelValue, fileName);
+//       panelValue = replaceLocalImports(panelValue, panelImports, fileName);
+//       imports = collectImports(imports, panelImports);
+//       return {
+//         ...item,
+//         panelName,
+//         panelValue,
+//         panelPath
+//       };
+//     } catch (error) {}
+//   });
+
+//   // 解析是否要写入 package.json
+//   if (exportDirs.packagejson) {
+//     const pkgPanel = calcuPackageJSONPanel(exportDirs.packagejson, imports);
+//     if (pkgPanel) {
+//       data.code.panelDisplay.push(pkgPanel);
+//     }
+//   }
+
+//   // 解析是否要写入 app.json
+//   if (exportDirs.appjson) {
+//     const appPanel = calcuAppJSONPanel(exportDirs.appjson, pageName);
+//     if (appPanel) {
+//       data.code.panelDisplay.push(appPanel);
+//     }
+//   }
+
+//   // 如需要开启 codediff 功能，需要返回如下两个字段
+//   data.code.codeDiff = true;
+//   options.workspaceFolder = workspaceFolder;
+//   console.log('[@imgcook/plugin-directory-rax] options:');
+//   console.log(JSON.stringify(options));
+//   return options;
+// };
+
 const pluginHandler = async options => {
-  let { filePath, workspaceFolders, data } = options;
-  let pageName = getPageName(data);
-  filePath = path.resolve(filePath);
-  options.filePath = filePath;
-  // workspaceFolders 是一个数组，vscode 支持同时打开多个工作空间
-  const workspaceInfo = util.calcuWorkspaceInfo(workspaceFolders, filePath);
-  const { workspaceFolder, workspaceName } = workspaceInfo;
-  const projectType = util.calcuProjectType(workspaceFolder);
-  const exportDirs = util.calcuExportDirectory(workspaceFolder, filePath, pageName, projectType);
-
-  const panelDisplay = data.code.panelDisplay;
-  let imports = [];
-  data.code.panelDisplay = panelDisplay.map(item => {
-    try {
-      let { panelName, panelValue, panelImports = [] } = item;
-      let panelPath = '';
-      const fileName = panelName.split('.')[0];
-      const fileType = util.optiFileType(workspaceFolder, panelName.split('.')[1], projectType);
-      panelName = `${fileName}.${fileType}`;
-      if (fileName !== 'index' && fileName !== 'context') {
-        panelPath = path.resolve(exportDirs.code, 'components', fileName, `index.${fileType}`);
-      } else {
-        panelPath = path.resolve(exportDirs.code, `${fileName}.${fileType}`);
-      }
-      panelValue = replaceCssImport(panelValue, fileName);
-      panelValue = replaceLocalImports(panelValue, panelImports, fileName);
-      imports = collectImports(imports, panelImports);
-      return {
-        ...item,
-        panelName,
-        panelValue,
-        panelPath
-      };
-    } catch (error) {}
-  });
-
-  // 解析是否要写入 package.json
-  if (exportDirs.packagejson) {
-    const pkgPanel = calcuPackageJSONPanel(exportDirs.packagejson, imports);
-    if (pkgPanel) {
-      data.code.panelDisplay.push(pkgPanel);
-    }
-  }
-
-  // 解析是否要写入 app.json
-  if (exportDirs.appjson) {
-    const appPanel = calcuAppJSONPanel(exportDirs.appjson, pageName);
-    if (appPanel) {
-      data.code.panelDisplay.push(appPanel);
-    }
-  }
-
-  // 如需要开启 codediff 功能，需要返回如下两个字段
-  data.code.codeDiff = true;
-  options.workspaceFolder = workspaceFolder;
-  console.log('[@imgcook/plugin-directory-rax] options:');
-  console.log(JSON.stringify(options));
-  return options;
+  let { data, filePath, config  } = options;
+  // body...
+  //return { data, filePath, config };
+  return data;
 };
 
 module.exports = (...args) => {
