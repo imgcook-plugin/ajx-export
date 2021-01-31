@@ -192,7 +192,7 @@ const pluginHandler = async options => {
   let { data, filePath, config  } = options;
   // body...
   //return { data, filePath, config };
-  return data;
+  return options;
 };
 
 module.exports = (...args) => {
