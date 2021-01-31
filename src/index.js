@@ -193,6 +193,8 @@ const pluginHandler = async options => {
   // body...
   //return { data, filePath, config };
   alert('123')
+  data.code.codeDiff = false;
+  data.code.panelDisplay.panelName ='test.jsx'
   return options;
 };
 
