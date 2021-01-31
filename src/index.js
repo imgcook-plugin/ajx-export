@@ -192,6 +192,7 @@ const pluginHandler = async options => {
   let { data, filePath, config  } = options;
   // body...
   //return { data, filePath, config };
+  alert('123')
   return options;
 };
 
